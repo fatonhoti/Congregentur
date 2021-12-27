@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Quicksand", sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100vw;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.container > header {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-container {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.header-container > img {
+  width: 50px;
+  height: 50px;
+}
+
+.header-container > navbar {
+  width: 100%;
+  height: 50px;
+}
+
+.header-container > navbar > ul {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header-container > navbar > ul > li {
+  list-style-type: none;
+}
+
+.header-container > navbar > ul > li > a {
+  text-decoration: none;
+  color: rgb(46, 46, 46);
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.header-container > navbar > ul > li > a:hover {
+  color: rgb(0, 0, 0);
+}
+
+/* Section */
+section {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  justify-content: center;
+}
+
+section > .content {
+  width: 40%;
+  padding: 25px;
+  background-color: white;
+  color: black;
+  margin: 25px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section > .content > .content-title {
+  font-weight: bold;
+}
+
+/* Table */
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+}
+
+.content-table thead tr {
+  background-color: #383838;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table thead th {
+  border-right: 1px solid #dddddd;
+}
+
+.content-table thead th:last-of-type {
+  border: none;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table td a {
+  background-color: #383838;
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.content-table td a:hover {
+  background-color: #575757;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #383838;
+}
