@@ -34,18 +34,22 @@ public class BookController {
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
         Optional<Book> book = bookService.findById(id);
-        if (book.isPresent()) {
-            model.addAttribute("books", List.of(book.get()));
+        if (!book.isPresent()) {
+            // Book with id 'id' was not found!!!
+            // Create HttpStatus and ResponseEntity?
         }
+        model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
     @PostMapping
     public String createBook(@RequestBody Book book, Model model) {
         Book newBook = bookService.createBook(book);
-        if (newBook != null) {
-            model.addAttribute("books", List.of(newBook));
+        if (newBook == null) {
+            // Book creation failed!!!
+            // Create HttpStatus and ResponseEntity?
         }
+        model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
@@ -62,6 +66,9 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable("id") Long id) {
+        // TODO: implement try-catch in BookService,
+        // save result from that function and
+        // act accordingly (HttpStatus, RespEntity)
         bookService.deleteBook(id);
         return "books";
     }

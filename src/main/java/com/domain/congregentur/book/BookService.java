@@ -55,6 +55,9 @@ public class BookService {
 
     // Delete
     public void deleteBook(Long id) {
+        // TODO: Put this in a try, catch
+        // since 'deleteById' throws an "EmptyResultDataAccessException"
+        // when supplied id does not exist.
         bookRepository.deleteById(id);
     }
 
