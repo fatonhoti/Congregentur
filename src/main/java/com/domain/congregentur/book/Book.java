@@ -33,6 +33,9 @@ public class Book {
     @Column(length = 13)
     private String isbn;
 
+    public Book() {
+    }
+
     public Book(Long id, String title, String author, String isbn) {
         this.id = id;
         this.title = title;
@@ -44,6 +47,14 @@ public class Book {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+    }
+
+    public Book updateWith(Book book) {
+        return new Book(
+                this.id,
+                book.title,
+                book.author,
+                book.isbn);
     }
 
     @Override
