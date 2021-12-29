@@ -5,6 +5,7 @@ import com.domain.congregentur.util.UtilityFunctions;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,14 @@ public class BookService {
     }
 
     // Read (single)
-    public Optional<Book> findById(Long id) {
-        return bookRepository.findById(id);
+    public Book findById(Long id) {
+        try {
+            Book b = bookRepository.findById(id).get();
+            return b;
+        } catch (NoSuchElementException e) {
+            // Supplied id does not exist.
+            return null;
+        }
     }
 
     // Create

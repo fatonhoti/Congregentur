@@ -1,6 +1,6 @@
 package com.domain.congregentur.book;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,12 +36,14 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
-        Optional<Book> book = bookService.findById(id);
-        if (!book.isPresent()) {
+        Book book = bookService.findById(id);
+        if (book == null) {
             // Book with supplied id was not found!!!
             // Create HttpStatus and ResponseEntity?
+            model.addAttribute("books", bookService.findAll());
+        } else {
+            model.addAttribute("books", List.of(book));
         }
-        model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
@@ -63,30 +65,40 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public String updateBook(@PathVariable("id") Long id, @RequestBody Book updatedBook, Model model) {
+    public View updateBook(@PathVariable("id") Long id, @RequestBody Book updatedBook, Model model) {
         Book book = bookService.updateBook(id, updatedBook);
         if (book == null) {
             // Book update failed!!!
             // Create HttpStatus and ResponseEntity?
+            model.addAttribute("books", bookService.findAll());
+        } else {
+            model.addAttribute("books", List.of(book));
         }
-        model.addAttribute("books", bookService.findAll());
-        return "books";
+        return new RedirectView("/api/books");
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable("id") Long id) {
+    public View deleteBook(@PathVariable("id") Long id, Model model) {
         boolean removed = bookService.deleteBook(id);
         if (!removed) {
             // Book removal failed!!!
             // Create HttpStatus and ResponseEntity?
         }
-        return "books";
+        model.addAttribute("books", bookService.findAll());
+        return new RedirectView("/api/books");
     }
 
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("book", bookService.findById(id).get());
-        return "edit";
+        Book book = bookService.findById(id);
+        if (book == null) {
+            // Book with supplied id was not found!!!
+            // Create HttpStatus and ResponseEntity?
+            return "books";
+        } else {
+            model.addAttribute("book", book);
+            return "edit";
+        }
     }
 
     @PostMapping("/edit/{id}")
