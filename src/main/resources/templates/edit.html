@@ -26,17 +26,17 @@
         </header>
 
         <section>
-            <div class="content" style="width: 30%;">
+            <div class="content" style="width: 30%; height: 40%;">
                 <h1 style="font-size: 2.5em;">Edit book</h1>
                 <form action="#" th:action="@{'/api/books/edit/' + ${book.id}}" method="post" style="border: 1px solid #383838; border-radius: 5px; margin-top: 10px; padding: 10px;">
                     <p th:text="'Current title: ' + ${book.title}">title</p>
-                    <input th:name="title" type="text" id="title" name="title" minlength="1" style="padding: 5px; margin: 10px 0px;"><br>
+                    <input th:name="title" type="text" id="title" name="title" placeholder="title" style="padding: 5px; margin: 10px 0px;"><br>
 
                     <p th:text="'Current author: ' + ${book.author}">author</p>
-                    <input th:name="author" type="text" id="author" name="author" minlength="1" style="padding: 5px; margin: 10px 0px;"><br>
+                    <input th:name="author" type="text" id="author" name="author" placeholder="author" style="padding: 5px; margin: 10px 0px;"><br>
 
                     <p th:text="'Current ISBN: ' + ${book.isbn}">isbn</p>
-                    <input th:name="isbn" type="text" id="isbn" name="isbn" minlength="13" maxlength="13" style="padding: 5px; margin: 10px 0px;"><br>
+                    <input th:name="isbn" type="text" id="isbn" name="isbn" placeholder="isbn" style="padding: 5px; margin: 10px 0px;"><br>
                     <p>
                         <input type="submit" value="Submit"/>
                         <input type="reset" value="Reset"/>

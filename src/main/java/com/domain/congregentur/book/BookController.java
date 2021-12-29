@@ -87,9 +87,16 @@ public class BookController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("isbn") String isbn, Model model) {
-        bookService.updateBook(id, new Book(title, author, isbn));
+        if (!title.isEmpty() && !author.isEmpty() && (!isbn.isEmpty() && isbn.length() == 13))
+            bookService.updateBook(id, new Book(title, author, isbn));
         model.addAttribute("books", bookService.findAll());
         return new RedirectView("/api/books");
+    }
+
+    @GetMapping("/search")
+    public String findByTitleOrAuthorOrIsbn(@RequestParam("keyword") String keyword, Model model) {
+        model.addAttribute("books", bookService.findByTitleOrAuthorOrIsbn(keyword));
+        return "books";
     }
 
 }

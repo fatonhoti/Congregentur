@@ -18,8 +18,11 @@
             <div class="header-container">
                 <img src="http://localhost:8080/images/header_img.png" alt="header_logo" width="50" height="50">
                 <navbar>
-                    <ul>
+                    <ul style="display: flex; align-items: center; justify-content: space-between;">
                         <li><a th:href="@{~/api/books}">Books</a></li>
+                        <form th:action="@{~/api/books/search}">
+                            <input  style="padding: 10px;" th:name="keyword" type="search" placeholder="title, isbn or author" aria-label="Search">
+                        </form>
                     </ul>
                 </navbar>
             </div>

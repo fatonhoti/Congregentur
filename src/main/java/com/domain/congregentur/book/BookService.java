@@ -18,6 +18,10 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    public List<Book> findByTitleOrAuthorOrIsbn(String keyword) {
+        return bookRepository.findByTitleOrAuthorOrIsbn(keyword);
+    }
+
     // Read (all)
     public List<Book> findAll() {
         List<Book> books = bookRepository.findAll();
