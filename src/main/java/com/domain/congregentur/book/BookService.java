@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,11 +49,7 @@ public class BookService {
     public Book updateBook(Long id, Book updatedBook) {
         Optional<Book> oldBook = bookRepository.findById(id);
         if (oldBook.isPresent()) {
-            // Verify contents of updatedBook
-            if (!updatedBook.getTitle().isEmpty() &&
-                    !updatedBook.getAuthor().isEmpty() &&
-                    !updatedBook.getIsbn().isEmpty() &&
-                    updatedBook.getIsbn().length() == 13) {
+            if (UtilityFunctions.bookIsValid(oldBook.get())) {
                 Book updated = oldBook.get().updateWith(updatedBook);
                 return bookRepository.save(updated);
             }
@@ -61,11 +58,14 @@ public class BookService {
     }
 
     // Delete
-    public void deleteBook(Long id) {
-        // TODO: Put this in a try, catch
-        // since 'deleteById' throws an "EmptyResultDataAccessException"
-        // when supplied id does not exist.
-        bookRepository.deleteById(id);
+    public boolean deleteBook(Long id) {
+        try {
+            bookRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            // Supplied id does not exist.
+            return false;
+        }
+        return true;
     }
 
 }

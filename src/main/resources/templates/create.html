@@ -27,16 +27,17 @@
 
         <section>
             <div class="content" style="width: 30%; height: 40%;">
-                <h1 style="font-size: 2.5em;">Edit book</h1>
+                <h1 style="font-size: 2.5em;">Create book</h1>
+                <h3 style="margin: 10px 0px;">All fields must have values for the book to actually be created!</h3>
                 <form action="#" th:action="@{~/api/books/create}" th:object="${book}" method="post" style="border: 1px solid #383838; border-radius: 5px; margin-top: 10px; padding: 10px;">
-                    <p>title</p>
-                    <input th:name="title" type="text" id="title" name="title" placeholder="title" style="padding: 5px; margin: 10px 0px;"><br>
+                    <p><strong>Title</strong></p>
+                    <input th:name="title" type="text" id="title" name="title" style="padding: 5px; margin: 10px 0px;"><br>
 
-                    <p>author</p>
-                    <input th:name="author" type="text" id="author" name="author" placeholder="author" style="padding: 5px; margin: 10px 0px;"><br>
+                    <p><strong>Author</strong></p>
+                    <input th:name="author" type="text" id="author" name="author" style="padding: 5px; margin: 10px 0px;"><br>
 
-                    <p>isbn</p>
-                    <input th:name="isbn" type="text" id="isbn" name="isbn" placeholder="isbn" style="padding: 5px; margin: 10px 0px;"><br>
+                    <p><strong>ISBN</strong></p>
+                    <input th:name="isbn" type="text" id="isbn" name="isbn" style="padding: 5px; margin: 10px 0px;"><br>
                     <p>
                         <input type="submit" value="Create book"/>
                         <input type="reset" value="Reset"/>

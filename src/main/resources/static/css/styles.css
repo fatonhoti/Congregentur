@@ -89,6 +89,7 @@ section > .content {
 
 section > .content > h1 {
   color: #383838;
+  font-size: 2em;
 }
 
 section > .content > .content-title {

@@ -38,11 +38,28 @@ public class BookController {
     public String findById(@PathVariable("id") Long id, Model model) {
         Optional<Book> book = bookService.findById(id);
         if (!book.isPresent()) {
-            // Book with id 'id' was not found!!!
+            // Book with supplied id was not found!!!
             // Create HttpStatus and ResponseEntity?
         }
         model.addAttribute("books", bookService.findAll());
         return "books";
+    }
+
+    @GetMapping("/create")
+    public String createBook(Model model) {
+        model.addAttribute("book", new Book());
+        return "create";
+    }
+
+    @PostMapping("/create")
+    public View createBook(@ModelAttribute("book") Book book, Model model) {
+        Book newBook = bookService.createBook(book);
+        if (newBook == null) {
+            // Book creation failed!!!
+            // Create HttpStatus and ResponseEntity?
+        }
+        model.addAttribute("books", bookService.findAll());
+        return new RedirectView("/api/books");
     }
 
     @PutMapping("{id}")
@@ -58,10 +75,11 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable("id") Long id) {
-        // TODO: implement try-catch in BookService,
-        // save result from that function and
-        // act accordingly (HttpStatus, RespEntity)
-        bookService.deleteBook(id);
+        boolean removed = bookService.deleteBook(id);
+        if (!removed) {
+            // Book removal failed!!!
+            // Create HttpStatus and ResponseEntity?
+        }
         return "books";
     }
 
@@ -79,23 +97,6 @@ public class BookController {
             @RequestParam("isbn") String isbn, Model model) {
         if (!title.isEmpty() && !author.isEmpty() && (!isbn.isEmpty() && isbn.length() == 13))
             bookService.updateBook(id, new Book(title, author, isbn));
-        model.addAttribute("books", bookService.findAll());
-        return new RedirectView("/api/books");
-    }
-
-    @GetMapping("/create")
-    public String createBook(Model model) {
-        model.addAttribute("book", new Book());
-        return "create";
-    }
-
-    @PostMapping("/create")
-    public View createBook(@ModelAttribute("book") Book book, Model model) {
-        Book newBook = bookService.createBook(book);
-        if (newBook == null) {
-            // Book creation failed!!!
-            // Create HttpStatus and ResponseEntity?
-        }
         model.addAttribute("books", bookService.findAll());
         return new RedirectView("/api/books");
     }

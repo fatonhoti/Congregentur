@@ -16,7 +16,7 @@ public class UtilityFunctions {
             return false;
         }
         try {
-            Long l = Long.parseLong(s);
+            Long.parseLong(s);
         } catch (NumberFormatException e) {
             return false;
         }
