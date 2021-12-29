@@ -78,7 +78,7 @@ section {
 
 section > .content {
   width: 60%;
-  padding: 25px;
+  padding: 25px 0px;
   background-color: white;
   color: black;
   margin: 25px 0px;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,17 +39,6 @@ public class BookController {
         Optional<Book> book = bookService.findById(id);
         if (!book.isPresent()) {
             // Book with id 'id' was not found!!!
-            // Create HttpStatus and ResponseEntity?
-        }
-        model.addAttribute("books", bookService.findAll());
-        return "books";
-    }
-
-    @PostMapping
-    public String createBook(@RequestBody Book book, Model model) {
-        Book newBook = bookService.createBook(book);
-        if (newBook == null) {
-            // Book creation failed!!!
             // Create HttpStatus and ResponseEntity?
         }
         model.addAttribute("books", bookService.findAll());
@@ -89,6 +79,23 @@ public class BookController {
             @RequestParam("isbn") String isbn, Model model) {
         if (!title.isEmpty() && !author.isEmpty() && (!isbn.isEmpty() && isbn.length() == 13))
             bookService.updateBook(id, new Book(title, author, isbn));
+        model.addAttribute("books", bookService.findAll());
+        return new RedirectView("/api/books");
+    }
+
+    @GetMapping("/create")
+    public String createBook(Model model) {
+        model.addAttribute("book", new Book());
+        return "create";
+    }
+
+    @PostMapping("/create")
+    public View createBook(@ModelAttribute("book") Book book, Model model) {
+        Book newBook = bookService.createBook(book);
+        if (newBook == null) {
+            // Book creation failed!!!
+            // Create HttpStatus and ResponseEntity?
+        }
         model.addAttribute("books", bookService.findAll());
         return new RedirectView("/api/books");
     }

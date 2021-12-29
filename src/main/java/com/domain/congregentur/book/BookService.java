@@ -1,5 +1,7 @@
 package com.domain.congregentur.book;
 
+import com.domain.congregentur.util.UtilityFunctions;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,10 +38,7 @@ public class BookService {
 
     // Create
     public Book createBook(Book book) {
-        if (book.getTitle().isEmpty() || book.getAuthor().isEmpty()) {
-            return null;
-        }
-        if (!book.getIsbn().isEmpty() && book.getIsbn().length() == 13) {
+        if (UtilityFunctions.bookIsValid(book)) {
             return bookRepository.save(book);
         }
         return null;
