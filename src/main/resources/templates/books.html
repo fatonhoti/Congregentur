@@ -19,7 +19,7 @@
                 <img src="http://localhost:8080/images/header_img.png" alt="header_logo" width="50" height="50">
                 <navbar>
                     <ul>
-                        <li><a href="@{~api/books}">Books</a></li>
+                        <li><a th:href="@{~/api/books}">Books</a></li>
                     </ul>
                 </navbar>
             </div>
@@ -45,7 +45,7 @@
                             <td th:text="${book.author}">Author</td>
                             <td th:text="${book.isbn}">ISBN</td>
                             <td>
-                                <a href="#">EDIT</a>
+                                <a th:href="@{'/api/books/edit/' + ${book.id}}">EDIT</a>
                                 <a href="#">DELETE</a>
                             </td>
                         </tr>

@@ -1,5 +1,7 @@
 package com.domain.congregentur.book;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +20,9 @@ public class BookService {
 
     // Read (all)
     public List<Book> findAll() {
-        return bookRepository.findAll();
+        List<Book> books = bookRepository.findAll();
+        Collections.sort(books, Comparator.comparingLong(Book::getId));
+        return books;
     }
 
     // Read (single)

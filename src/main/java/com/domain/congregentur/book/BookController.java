@@ -1,6 +1,5 @@
 package com.domain.congregentur.book;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("api/books")
@@ -71,6 +73,23 @@ public class BookController {
         // act accordingly (HttpStatus, RespEntity)
         bookService.deleteBook(id);
         return "books";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("book", bookService.findById(id).get());
+        return "edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public View editBook(
+            @PathVariable("id") Long id,
+            @RequestParam("title") String title,
+            @RequestParam("author") String author,
+            @RequestParam("isbn") String isbn, Model model) {
+        bookService.updateBook(id, new Book(title, author, isbn));
+        model.addAttribute("books", bookService.findAll());
+        return new RedirectView("/api/books");
     }
 
 }
