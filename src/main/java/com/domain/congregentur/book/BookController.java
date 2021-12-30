@@ -39,7 +39,6 @@ public class BookController {
         Book book = bookService.findById(id);
         if (book == null) {
             // Book with supplied id was not found!!!
-            // Create HttpStatus and ResponseEntity?
             model.addAttribute("books", bookService.findAll());
         } else {
             model.addAttribute("books", List.of(book));
@@ -58,7 +57,7 @@ public class BookController {
         Book newBook = bookService.createBook(book);
         if (newBook == null) {
             // Book creation failed!!!
-            // Create HttpStatus and ResponseEntity?
+            // // TODO: Handle appropriately.
         }
         model.addAttribute("books", bookService.findAll());
         return new RedirectView("/api/books");
@@ -69,7 +68,6 @@ public class BookController {
         Book book = bookService.updateBook(id, updatedBook);
         if (book == null) {
             // Book update failed!!!
-            // Create HttpStatus and ResponseEntity?
             model.addAttribute("books", bookService.findAll());
         } else {
             model.addAttribute("books", List.of(book));
@@ -82,7 +80,7 @@ public class BookController {
         boolean removed = bookService.deleteBook(id);
         if (!removed) {
             // Book removal failed!!!
-            // Create HttpStatus and ResponseEntity?
+            // TODO: Handle appropriately.
         }
         model.addAttribute("books", bookService.findAll());
         return new RedirectView("/api/books");

@@ -55,11 +55,9 @@ public class BookService {
     // Update
     public Book updateBook(Long id, Book updatedBook) {
         Optional<Book> oldBook = bookRepository.findById(id);
-        if (oldBook.isPresent()) {
-            if (UtilityFunctions.bookIsValid(oldBook.get())) {
-                Book updated = oldBook.get().updateWith(updatedBook);
-                return bookRepository.save(updated);
-            }
+        if (oldBook.isPresent() && UtilityFunctions.bookIsValid(oldBook.get())) {
+            Book updated = oldBook.get().updateWith(updatedBook);
+            return bookRepository.save(updated);
         }
         return null;
     }
