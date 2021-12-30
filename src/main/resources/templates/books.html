@@ -18,11 +18,8 @@
             <div class="header-container">
                 <img src="http://localhost:8080/images/header_img.png" alt="header_logo" width="50" height="50">
                 <navbar>
-                    <ul style="display: flex; align-items: center; justify-content: space-between;">
+                    <ul style="display: flex; align-items: center; justify-content: flex-start">
                         <li><a th:href="@{~/api/books}">Books</a></li>
-                        <form th:action="@{~/api/books/search}">
-                            <input  style="padding: 10px;" th:name="keyword" type="search" placeholder="title, isbn or author" aria-label="Search">
-                        </form>
                     </ul>
                 </navbar>
             </div>
@@ -32,6 +29,9 @@
             <div class="content">
                 <h1 class="content-title">Books</h1>
                 <a style="border-radius: 5px; background-color: rgb(46, 46, 46); color: white; padding: 10px; margin: 10px 0px; text-decoration: none;" th:href="@{~/api/books/create}">Add book</a>
+                <form th:action="@{~/api/books/search}">
+                    <input  style="padding: 10px;" th:name="keyword" type="search" placeholder="title, isbn or author" aria-label="Search">
+                </form>
                 <table class="content-table">
                     <thead>
                         <tr>

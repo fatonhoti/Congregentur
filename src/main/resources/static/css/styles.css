@@ -76,6 +76,7 @@ section {
 }
 
 section > .content {
+  min-height: 100vh;
   padding: 25px;
   background-color: white;
   color: black;
